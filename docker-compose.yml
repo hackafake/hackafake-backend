@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: .
+    links:
+      - mongodb
+    environment:
+      - CONFIG=docker
+      - MONGO_URL=mongodb://mongodb
+      - MONGO_DB=mongo
+    ports:
+      - 8080:80
+  mongodb:
+    image: mongo:3.0.2
