@@ -1,4 +1,4 @@
-# Open hackSfake API
+# Open hackafake API
 
  - GET `/counter`
 
