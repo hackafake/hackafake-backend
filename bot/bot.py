@@ -24,11 +24,12 @@ def handle(msg):
                 r = requests.get('https://api.fakenewsdetector.org/votes?url={}&title='.format(url))
                 for data in r.json()['content']['robot']:
                     if data['category_id'] == 2 and data['chance'] > 0.5:
-                        bot.sendMessage(chat_id, 'Attenzione: %s è una fake news!'%url)
+                        bot.sendMessage(chat_id, 'Attenzione: %s e\' una fake news!\nprobabilita\': %s'%(url, data['chance']))
+                        requests.post("http://52.212.172.20:8080/fakenews", json={
+                            'url': url,
+                            'user': ''
+                        })
             print(urls)
-
-        if 'ciao' in msg['text']:
-            bot.sendMessage(chat_id, 'heyla!')
 
 
 

@@ -1,7 +1,7 @@
 from flask_restplus import Namespace, Resource, fields
 from flask import request
 
-from .models import FakeNews, User, NewsToUser
+from .models import FakeNews, User
 
 from flask_restplus import Api
 
@@ -13,7 +13,7 @@ api = Api(
 
 fake_post_model = api.model('FakeNewsPost', {
     'url': fields.String,
-    'user': fields.String,
+    'username': fields.String,
 })
 
 fake_news_model = api.model('FakeNews', {
@@ -21,6 +21,10 @@ fake_news_model = api.model('FakeNews', {
     'counter': fields.Integer
 })
 
+user_model = api.model('User', {
+    'username': fields.String,
+    'counter': fields.Integer
+})
 
 
 
@@ -30,6 +34,11 @@ class CounterResource(Resource):
         cnts = [fake.counter for fake in FakeNews.objects]
         return {'counter': sum(cnts)}
 
+@api.route('/users')
+class UserResource(Resource):
+    @api.marshal_with(user_model, as_list=True)
+    def get(self):
+        return [user for user in User.objects]
 
 @api.route('/fakenews')
 class FakeNewsResource(Resource):
@@ -47,4 +56,12 @@ class FakeNewsResource(Resource):
             fake = FakeNews(url=data['url'], counter = 0)
         fake.counter += 1
         fake.save()
+
+        try:
+            user = User.objects.get(username=data['username'])
+        except:
+            user = User(username=data['username'], counter = 0)
+        user.counter += 1
+        user.save()
+        
         return fake

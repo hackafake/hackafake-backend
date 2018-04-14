@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from flask_jwt_extended import decode_token, create_access_token
 from jwt import ExpiredSignatureError
 import pytest
-from server.models import FakeNews
+from server.models import FakeNews, User
 
 from mongoengine.errors import NotUniqueError
 
@@ -38,10 +38,21 @@ def test_post_fake_news(client, db):
     assert fakes[0].url == 'https://ludusrusso.cc/'
     assert fakes[0].counter == 1
 
+    users = [u for u in User.objects]
+    assert len(users) == 1
+    assert users[0].username == 'ludusrusso'
+    assert users[0].counter == 1
+
+    data["username"] = 'gmacario'
     res = client.post('/fakenews', json=data)
+    
     assert res.status_code == 200
     fakes = [f for f in FakeNews.objects]
     assert len(fakes) == 1
     assert fakes[0].url == 'https://ludusrusso.cc/'
     assert fakes[0].counter == 2
 
+    users = [u for u in User.objects]
+    assert len(users) == 2
+    assert users[1].username == 'gmacario'
+    assert users[1].counter == 1

@@ -10,8 +10,4 @@ class FakeNews(db.Document):
 class User(db.Document):
     id = db.SequenceField(primary_key=True)
     username = db.StringField(required=True, unique=True)
-
-class NewsToUser(db.Document):
-    id = db.SequenceField(primary_key=True)
-    user = db.ReferenceField(User)
-    fake_news = db.ReferenceField(FakeNews)
+    counter = db.IntField()
