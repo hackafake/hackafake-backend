@@ -36,7 +36,9 @@ fi
 # ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
 
 ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "\
-cd github/SOLARMA/hackafake-backend && \
+id && \
+pwd && \
+cd /home/ubuntu/github/SOLARMA/hackafake-backend && \
 git pull --all --prune && \
 git log -1 && \
 git status && \
