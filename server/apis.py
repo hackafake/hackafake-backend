@@ -76,13 +76,13 @@ class ChallengeResource(Resource):
 class UserResource(Resource):
     @api.marshal_with(user_model, as_list=True)
     def get(self):
-        return [user for user in User.objects]
+        return sorted([user for user in User.objects], key=lambda user: user.fake, reverse=True)
 
 @api.route('/fakenews')
 class FakeNewsResource(Resource):
     @api.marshal_with(fake_news_model, as_list=True)
     def get(self):
-        return [fake for fake in FakeNews.objects]
+        return sorted([fake for fake in FakeNews.objects if fake.is_fake == True], key=lambda news: news.counter, reverse=True)
 
     @api.expect(fake_post_model)
     @api.marshal_with(fake_news_model)
