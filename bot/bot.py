@@ -27,7 +27,7 @@ def handle(msg):
                         bot.sendMessage(chat_id, 'Attenzione: %s e\' una fake news!\nprobabilita\': %s'%(url, data['chance']))
                         requests.post("http://52.212.172.20:8080/fakenews", json={
                             'url': url,
-                            'user': ''
+                            'user': msg["from"]["first_name"]
                         })
             print(urls)
 
