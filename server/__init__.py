@@ -20,8 +20,9 @@ def create_app(confname='default'):
     CORS(app)
     FlaskJSON(app)
 
-    from .test_api import test_bp
-    app.register_blueprint(test_bp)
+    from .apis import api
+    api.init_app(app)
+
 
     @app.route('/test/counter')
     @as_json

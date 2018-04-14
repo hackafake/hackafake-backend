@@ -4,7 +4,7 @@ from server import create_app
 from flask import Response as BaseResponse, json
 from flask.testing import FlaskClient
 from werkzeug.utils import cached_property
-# from server.models import User, Robot
+from server.models import User, FakeNews
 import uuid
 
 
@@ -29,17 +29,16 @@ def app():
     return app
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def db(app):
     from server import db as _db
-
     def drop_db():
-        for collection in [User]:
-            collection.drop_collection()
+        FakeNews.drop_collection()
         _db.connection.drop_database('test')
 
     with app.app_context():
         yield _db
+        print('dropping db')
         drop_db()
 
 
