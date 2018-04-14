@@ -6,10 +6,6 @@ import requests
 import re
 
 from config import TOKEN
-"""
-$ python2.7 skeleton.py <token>
-A skeleton for your telepot programs.
-"""
 
 def handle(msg):
     flavor = telepot.flavor(msg)
@@ -21,17 +17,12 @@ def handle(msg):
         urls =re.findall('https?:\/\/[^\s]+', msg['text'])
         if len(urls) > 0:
             for url in urls:
-                r = requests.get('https://api.fakenewsdetector.org/votes?url={}&title='.format(url))
-                for data in r.json()['content']['robot']:
-                    if data['category_id'] == 2 and data['chance'] > 0.5:
-                        bot.sendMessage(chat_id, 'Attenzione: %s e\' una fake news!\nprobabilita\': %s'%(url, data['chance']))
-                        requests.post("http://52.212.172.20:8080/fakenews", json={
-                            'url': url,
-                            'username': msg["from"]["first_name"]
-                        })
-            print(urls)
-
-
+                res = requests.post("http://52.212.172.20:8080/fakenews", json={
+                    'url': url,
+                    'username': msg["from"].get('username') or (msg["from"].get("first_name") + ' ' + msg["from"].get("last_name"))
+                })
+                if res.json()['is_fake'] == True:
+                    bot.sendMessage(chat_id, 'Attenzione: %s e\' una fake news!'%(url))
 
     print (flavor, summary)
 
