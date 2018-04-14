@@ -32,8 +32,11 @@ if [ ! -e  ${AWS_KEY} ]; then
     ls -la ${AWS_KEY}
     sha256sum ${AWS_KEY}
 fi
+#
 # ssh-keygen
-ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
+# ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
+#
+ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h; docker --version; docker images; docker ps"
 
 # EOF
 '''
