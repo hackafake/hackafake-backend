@@ -26,6 +26,11 @@ user_model = api.model('User', {
     'counter': fields.Integer
 })
 
+true_fake_model = api.model('TrueFake', {
+    'fake': fields.String,
+    'real': fields.String
+})
+
 
 
 @api.route('/counter')
@@ -33,6 +38,17 @@ class CounterResource(Resource):
     def get(self):
         cnts = [fake.counter for fake in FakeNews.objects]
         return {'counter': sum(cnts)}
+
+@api.route('/challenge')
+class ChallengeResource(Resource):
+    @api.marshal_with(true_fake_model)
+    def get(self):
+        return {
+            'fake': 'https://www.fake.com',
+            'real': 'https://google.com'
+        }
+        
+
 
 @api.route('/users')
 class UserResource(Resource):
