@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      # TRYME: https://github.com/silinternational/ecs-deploy
+      // TRYME: https://github.com/silinternational/ecs-deploy
       image 'gmacario/android-devenv:latest'
     }
   }
