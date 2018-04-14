@@ -43,7 +43,7 @@ git pull --all --prune && \
 git log -1 && \
 git status && \
 docker-compose build --pull && \
-docker-compose up"
+docker-compose up -d"
 
 # DEBUG
 # pwd; id; ls -la; df -h
