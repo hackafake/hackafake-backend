@@ -10,5 +10,10 @@ docker-compose --version
 docker-compose build'''
       }
     }
+    stage('Deploy') {
+      steps {
+        sh 'docker-machine help'
+      }
+    }
   }
 }
