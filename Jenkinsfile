@@ -32,7 +32,7 @@ if [ ! -e  ${AWS_KEY} ]; then
     ls -la ${AWS_KEY}
     sha256sum ${AWS_KEY}
 fi
-ssh -i ${AWS_KEY} ubuntu@52.212.172.20 "pwd; id; ls -la; df -h"
+ssh -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
 
 # EOF
 '''
