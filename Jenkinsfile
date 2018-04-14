@@ -36,7 +36,23 @@ fi
 # ssh-keygen
 # ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
 #
-ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h; docker --version; docker images; docker ps"
+ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "
+set -xe
+
+# DEBUG
+pwd; id; ls -la; df -h
+docker --version
+docker images
+docker ps
+docker-compose --version
+
+cd github/SOLARMA/hackafake-backend
+git pull --all --prune
+git log -1
+git status
+docker-compose build --pull
+docker-compose up
+"
 
 # EOF
 '''
