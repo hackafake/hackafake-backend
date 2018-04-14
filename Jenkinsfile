@@ -28,6 +28,9 @@ AWS_KEY=hackathon_droidcon.pem
 # DEBUG
 if [ ! -e  ${AWS_KEY} ]; then
     curl -o ${AWS_KEY} https://gist.githubusercontent.com/gmacario/b2285d6347ec7c9c4954856a93958b1d/raw/4559359b4b8926217f10881c30b35fc39f9b1f7a/hackaton_droidcon.pem
+    chmod 600 ${AWS_KEY}
+    ls -la ${AWS_KEY}
+    sha256sum ${AWS_KEY}
 fi
 ssh -i ${AWS_KEY} ubuntu@52.212.172.20 "pwd; id; ls -la; df -h"
 
