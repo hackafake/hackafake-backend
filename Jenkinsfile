@@ -4,7 +4,10 @@ pipeline {
     stage('Build') {
       steps {
         echo 'TODO: Build'
-        sh 'docker-compose build'
+        sh '''docker --version
+docker-compose --version
+
+docker-compose build'''
       }
     }
   }
