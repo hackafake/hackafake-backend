@@ -14,7 +14,7 @@ import sys
 def get_title_from_url(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    return str(soup.find('title').string) or url
+    return str(soup.find('title').string.strip()) or url
     
 api = Api(
     title='hackafake Open API',
@@ -36,7 +36,8 @@ fake_news_model = api.model('FakeNews', {
 
 user_model = api.model('User', {
     'username': fields.String,
-    'counter': fields.Integer
+    'fake': fields.Integer,
+    'real': fields.Integer
 })
 
 true_fake_model = api.model('TrueFake', {
@@ -61,12 +62,12 @@ class ChallengeResource(Resource):
     @api.marshal_with(true_fake_model)
     def get(self):
         
-        fakes = [fake.counter for fake in FakeNews.objects(is_fake=True) ]
-        reals = [fake.counter for fake in FakeNews.objects(is_fake=False) ]
+        fakes = [fake for fake in FakeNews.objects(is_fake=True) ]
+        reals = [fake for fake in FakeNews.objects(is_fake=False) ]
 
         return {
             'fake': random.choice(fakes).title,
-            'real': random.choice(real).title
+            'real': random.choice(reals).title
         }
         
 
@@ -91,7 +92,6 @@ class FakeNewsResource(Resource):
             fake = FakeNews.objects.get(url=data['url'])
         except:
             fake = FakeNews(url=data['url'], counter = 0)
-            print(data['url'])
             fake.title = get_title_from_url(data['url'])
             r = requests.get('https://api.fakenewsdetector.org/votes?url={}&title='.format(data['url']))
             chance = 0.0
@@ -100,7 +100,6 @@ class FakeNewsResource(Resource):
                     chance = d['chance']
             fake.is_fake = chance > 0.5
         fake.counter += 1
-        print(fake.title, fake.url, fake.counter)
         fake.save()
         try:
             user = User.objects.get(username=data['username'])
@@ -112,4 +111,4 @@ class FakeNewsResource(Resource):
             user.real += 1
         user.save()
         
-        return {}
+        return fake
