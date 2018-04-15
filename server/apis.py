@@ -41,8 +41,8 @@ user_model = api.model('User', {
 })
 
 true_fake_model = api.model('TrueFake', {
-    'fake': fields.String,
-    'real': fields.String
+    'fake': fields.Nested(fake_news_model),
+    'real': fields.Nested(fake_news_model)
 })
 
 
@@ -65,10 +65,12 @@ class ChallengeResource(Resource):
         fakes = [fake for fake in FakeNews.objects(is_fake=True) ]
         reals = [fake for fake in FakeNews.objects(is_fake=False) ]
 
+        fake = random.choice(fakes)
+        real = random.choice(reals)
         return {
-            'fake': random.choice(fakes).title,
-            'real': random.choice(reals).title
-        }
+            'fake': fake,
+            'real': real
+            }
         
 
 
