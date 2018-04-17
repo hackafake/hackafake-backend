@@ -3,6 +3,7 @@ from datetime import timedelta
 
 class Config(object):
     RESTPLUS_VALIDATE = True
+    PREFERRED_URL_SCHEME = 'https'
 
     MONGODB_SETTINGS = {
         'db': os.environ.get('MONGODB_NAME') or 'default',
