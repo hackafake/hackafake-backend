@@ -1,1 +1,0 @@
-ssh -i "hackaton_droidcon.pem" ubuntu@52.212.172.20
