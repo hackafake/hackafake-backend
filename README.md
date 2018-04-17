@@ -1,40 +1,8 @@
-# Open hackafake API
+# Open hackAfake API Backend
 
-**FIXME**: Use API introspection at <http://hackafake.it:8080/>
+The documentation is available on the [Api Introspection URL](https://api.hackafake.it).
 
- - GET `/counter`
 
-```
-{
-    "cnt": "integer"
-}
-```
+## Contribuators
 
- - GET `/fakenews?num=10`
-
-```
-{
-    "fake news": [
-        {
-            "url": "url",
-            "counter": "integer",
-            "$uri": "url",
-            "users": ["string", "string"],
-            "$date": "timestamp"
-        }
-    ]
-}
-```
-
- - GET `/users?num=10`
-```
-{
-    "users": [
-        {
-            "user": "string",
-            "counter": "integer",
-            "urls": ["url", "url"] 
-        }
-    ]
-}
-```
+ - [Ludus Russo](https://ludusrusso.cc)
