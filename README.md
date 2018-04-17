@@ -1,5 +1,7 @@
 # Open hackafake API
 
+**FIXME**: Use API introspection at <http://hackafake.it:8080/>
+
  - GET `/counter`
 
 ```
