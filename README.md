@@ -13,7 +13,7 @@ You can locally run the server with Python.
 1. Setup a virtualenv
 
 ```
-$ virtualen -ppython3 env && source env/bin/activate
+$ virtualenv -ppython3 env && source env/bin/activate
 ```
 
 2. Install dependencies
