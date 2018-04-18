@@ -13,7 +13,7 @@ You can locally run the server with Python.
 1. Setup a virtualenv
 
 ```
-$ virtualen -ppython3 env && source env/bin/activate
+$ virtualenv -ppython3 env && source env/bin/activate
 ```
 
 2. Install dependencies
@@ -31,7 +31,7 @@ $(env) python manage.py runserver
 
 ## License
 
-This repo is licensed under [BSD-3-Clause](./LICENSE)
+The hackAfake API Backend code is licensed under [BSD-3-Clause](./LICENSE).
 
 ## Contributors
 
