@@ -1,6 +1,6 @@
 # Open hackAfake API Backend
 
-The hackAfake API Backend serve the hackAfake RestPlus API. 
+The hackAfake API Backend serves the hackAfake RestPlus API. 
 
 The server has been written in Python using the Flask microframework, and documented with swagger!
 
