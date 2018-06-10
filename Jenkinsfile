@@ -7,19 +7,23 @@ pipeline {
   // }
   //
   agent any
-  // 
+  //
   stages {
     stage('Build') {
       steps {
-        echo 'TODO: Build'
-        sh '''docker --version
-docker-compose --version
+        echo 'INFO: Executing stage Build'
+        sh '''#/bin/bash
 
-docker-compose build'''
+docker --version
+docker-compose --version
+docker-compose build
+# EOF
+'''
       }
     }
     stage('Deploy') {
       steps {
+        echo 'INFO: Executing stage Deploy'
         // sh 'docker-machine help'
         // FIXME: Fetch *.pem in a more secure way
         sh '''#/bin/bash
@@ -51,7 +55,7 @@ docker-compose up -d"
 # docker images
 # docker ps
 # docker-compose --version
-# 
+#
 # cd github/SOLARMA/hackafake-backend
 # git pull --all --prune
 # git log -1
