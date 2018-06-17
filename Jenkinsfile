@@ -30,6 +30,14 @@ docker-compose build
         // TODO: Identify the envvar containing the git branch name
         // FIXME: Fetch *.pem in a more secure way
         sh '''#/bin/bash
+        
+# Deploy project to remote server
+
+echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
+
+if [ "$BRANCH_NAME" == "master" ]; then
+
+  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
 
 AWS_KEY=hackathon_droidcon.pem
 # DEBUG
@@ -65,6 +73,16 @@ docker-compose up -d"
 # git status
 # docker-compose build --pull
 # docker-compose up
+
+elif [ "$BRANCH_NAME" == "prod" ]; then
+
+  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to production"
+
+else
+
+  echo "WARNING: BRANCH_NAME=${BRANCH_NAME} ==> No action"
+    
+fi
 
 # EOF
 '''
