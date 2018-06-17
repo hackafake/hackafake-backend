@@ -35,7 +35,7 @@ docker-compose build
 
 echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 
-if [ "$BRANCH_NAME" == "master" ]; then
+if [ "$BRANCH_NAME" = "master" ]; then
 
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
 
@@ -74,7 +74,7 @@ docker-compose up -d"
 # docker-compose build --pull
 # docker-compose up
 
-elif [ "$BRANCH_NAME" == "prod" ]; then
+elif [ "$BRANCH_NAME" = "prod" ]; then
 
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to production"
 
