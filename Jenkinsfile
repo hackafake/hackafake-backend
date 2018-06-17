@@ -21,13 +21,34 @@ docker-compose build
 '''
       }
     }
-    stage('Deploy') {
+    stage('Deploy-staging') {
       steps {
-        echo 'INFO: Executing stage Deploy'
-        // sh 'docker-machine help'
+        echo 'INFO: Executing stage Deploy-staging'
         // DEBUG: Display environment variables
         sh 'printenv | sort'
-        // TODO: Identify the envvar containing the git branch name
+        sh '''#/bin/bash
+
+# Deploy project to remote server
+
+echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
+if [ "$BRANCH_NAME" = "master" ]; then
+
+  echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
+
+else
+
+  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
+    
+fi
+
+# EOF
+'''
+      }
+    }
+    stage('Deploy-prod') {
+      steps {
+        echo 'INFO: Executing stage Deploy-prod'
+        // sh 'docker-machine help'
         // FIXME: Fetch *.pem in a more secure way
         sh '''#/bin/bash
         
@@ -35,9 +56,9 @@ docker-compose build
 
 echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 
-if [ "$BRANCH_NAME" = "master" ]; then
+if [ "$BRANCH_NAME" = "prod" ]; then
 
-  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
+  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to production server"
 
 AWS_KEY=hackathon_droidcon.pem
 # DEBUG
@@ -74,13 +95,9 @@ docker-compose up -d"
 # docker-compose build --pull
 # docker-compose up
 
-elif [ "$BRANCH_NAME" = "prod" ]; then
-
-  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to production"
-
 else
 
-  echo "WARNING: BRANCH_NAME=${BRANCH_NAME} ==> No action"
+  echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
     
 fi
 
