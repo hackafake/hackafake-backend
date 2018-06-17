@@ -25,6 +25,9 @@ docker-compose build
       steps {
         echo 'INFO: Executing stage Deploy'
         // sh 'docker-machine help'
+        // DEBUG: Display environment variables
+        sh 'printenv | sort'
+        // TODO: Identify the envvar containing the git branch name
         // FIXME: Fetch *.pem in a more secure way
         sh '''#/bin/bash
 
