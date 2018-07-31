@@ -1,13 +1,5 @@
 pipeline {
-  // agent {
-  //   docker {
-  //     // TRYME: https://github.com/silinternational/ecs-deploy
-  //     image 'gmacario/android-devenv:latest'
-  //   }
-  // }
-  //
   agent any
-  //
   stages {
     stage('Build') {
       steps {
@@ -24,7 +16,6 @@ docker-compose build
     stage('Deploy-staging') {
       steps {
         echo 'INFO: Executing stage Deploy-staging'
-        // DEBUG: Display environment variables
         sh 'printenv | sort'
         sh '''#/bin/bash
 
@@ -34,6 +25,12 @@ echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 if [ "$BRANCH_NAME" = "master" ]; then
 
   echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
+
+elif [ "$BRANCH_NAME" = "feature/implement-staging" ]; then
+
+  echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to cc-vm2"
+
+  ssh root@cc-vm2.solarma.it "id; pwd; ls -la"
 
 else
 
@@ -48,8 +45,6 @@ fi
     stage('Deploy-prod') {
       steps {
         echo 'INFO: Executing stage Deploy-prod'
-        // sh 'docker-machine help'
-        // FIXME: Fetch *.pem in a more secure way
         sh '''#/bin/bash
         
 # Deploy project to remote server
@@ -71,15 +66,7 @@ fi
 
 # ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "pwd; id; ls -la; df -h"
 
-ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "\
-id && \
-pwd && \
-cd /home/ubuntu/github/SOLARMA/hackafake-backend && \
-git pull --all --prune && \
-git log -1 && \
-git status && \
-docker-compose build --pull && \
-docker-compose up -d"
+ssh -o StrictHostKeyChecking=no -i ${AWS_KEY} ubuntu@52.212.172.20 sh -c "id && pwd && cd /home/ubuntu/github/SOLARMA/hackafake-backend && git pull --all --prune && git log -1 && git status && docker-compose build --pull && docker-compose up -d"
 
 # DEBUG
 # pwd; id; ls -la; df -h
@@ -103,7 +90,6 @@ fi
 
 # EOF
 '''
-        // sh 'ssh -i "hackaton_droidcon.pem" ubuntu@52.212.172.20 "pwd; id; ls -la; df -h"'
       }
     }
   }
