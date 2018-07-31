@@ -44,14 +44,6 @@ elif [ "$BRANCH_NAME" = "prod" ]; then
   REMOTEHOST=cc-vm4.solarma.it
   REMOTEDIR=/var/tmp/${JOB_NAME}
 
-elif [ "$BRANCH_NAME" = "feature/implement-staging" ]; then
-
-  echo "INFO: Deploying to cc-vm2"
-
-  REMOTEUSER=root
-  REMOTEHOST=cc-vm2.solarma.it
-  REMOTEDIR=/var/tmp/${BRANCH_NAME}
-
 else
 
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
