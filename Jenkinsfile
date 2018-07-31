@@ -33,7 +33,7 @@ echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 echo "DEBUG: Inspecting host configuration"
 id; hostname; pwd; ls -la
 
-REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2F/_/g')
+REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2F/-/g' | sed 's/\//-/g')
 echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
 
 if [ "$BRANCH_NAME" = "master" ]; then
