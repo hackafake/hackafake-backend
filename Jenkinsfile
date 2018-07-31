@@ -61,9 +61,9 @@ ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
 
 if [ "${REMOTEUSER}" = "root" ]; then
   echo "INFO: Preparing remote host ${REMOTEHOST}"
-  ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} sh -c "\\
-      apt-get update && apt-get -y dist-upgrade && \\
-      apt-get -y install git"
+  # ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} sh -c "\\
+  #      apt-get update && apt-get -y dist-upgrade && \\
+  #      apt-get -y install git"
   # TODO: Install docker
   # TODO: Install docker-compose
 fi
