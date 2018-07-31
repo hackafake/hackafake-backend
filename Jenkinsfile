@@ -64,8 +64,7 @@ if [ "${REMOTEUSER}" = "root" ]; then
   ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} sh -c "\\
       sudo apt-get update && \\
       sudo apt-get -y dist-upgrade && \\
-      sudo apt-get -y install git && \\
-  "
+      sudo apt-get -y install git"
   # TODO: Install docker
   # TODO: Install docker-compose
 fi
