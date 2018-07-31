@@ -33,6 +33,9 @@ echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 echo "DEBUG: Inspecting host configuration"
 id; hostname; pwd; ls -la
 
+REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2F/_/g')
+echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
+
 if [ "$BRANCH_NAME" = "master" ]; then
   echo "INFO: Deploying to staging server"
   REMOTEUSER=root
@@ -45,8 +48,6 @@ else
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
   return    
 fi
-REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2f/_/g')
-echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
 
 echo "DEBUG: Inspecting target configuration"
 ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
