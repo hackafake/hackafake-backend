@@ -38,7 +38,7 @@ if [ "$BRANCH_NAME" = "master" ]; then
   echo "INFO: Deploying to staging server"
 
   REMOTEUSER=root
-  REMOTEHOST=cc-vm3.solarma.it
+  REMOTEHOST=cc-vm2.solarma.it
   REMOTEDIR=/var/tmp/${JOB_NAME}
 
 elif [ "$BRANCH_NAME" = "prod" ]; then
