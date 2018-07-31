@@ -33,27 +33,20 @@ echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 echo "DEBUG: Inspecting host configuration"
 id; hostname; pwd; ls -la
 
+REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2F/-/g' | sed 's:/:-:g')
+echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
+
 if [ "$BRANCH_NAME" = "master" ]; then
-
   echo "INFO: Deploying to staging server"
-
   REMOTEUSER=root
   REMOTEHOST=cc-vm2.solarma.it
-  REMOTEDIR=/var/tmp/${JOB_NAME}
-
 elif [ "$BRANCH_NAME" = "prod" ]; then
-
   echo "INFO: Deploying to production server"
-
   REMOTEUSER=root
   REMOTEHOST=cc-vm4.solarma.it
-  REMOTEDIR=/var/tmp/${JOB_NAME}
-
 else
-
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
-  return
-    
+  return    
 fi
 
 echo "DEBUG: Inspecting target configuration"
