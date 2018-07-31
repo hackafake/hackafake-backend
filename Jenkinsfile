@@ -14,6 +14,11 @@ docker-compose build --pull
 '''
       }
     }
+    stage('Test') {
+      steps {
+        echo 'TODO'
+      }
+    }
     stage('Deploy') {
       steps {
         echo 'INFO: Executing stage Deploy-staging'
@@ -65,11 +70,6 @@ docker-compose up -d"
 
 # EOF
 '''
-      }
-    }
-    stage('Test') {
-      steps {
-        echo 'TODO'
       }
     }
   }
