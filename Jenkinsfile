@@ -75,5 +75,10 @@ docker-compose up -d"
 '''
       }
     }
+    stage('Test') {
+      steps {
+        echo 'TODO'
+      }
+    }
   }
 }
