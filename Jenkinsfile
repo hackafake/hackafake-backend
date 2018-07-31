@@ -36,6 +36,19 @@ elif [ "$BRANCH_NAME" = "feature/implement-staging" ]; then
   echo "DEBUG: Inspecting target configuration"
   ssh root@cc-vm2.solarma.it "id; hostname; pwd; ls -la"
 
+  REMOTEUSER=root
+  REMOTEHOST=cc-vm2.solarma.it
+  REMOTEDIR=/var/tmp/${BRANCH_NAME}
+
+  echo "INFO: Deploying container to ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}"
+  ssh ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
+  rsync -avz . ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/
+  ssh ${REMOTEUSER}@${REMOTEHOST} "cd ${REMOTEDIR} && \\
+  git log -1 && \\
+  git status && \\
+  docker-compose build --pull && \\
+  docker-compose up -d"
+
 else
 
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
