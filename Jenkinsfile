@@ -8,7 +8,8 @@ pipeline {
 
 docker --version
 docker-compose --version
-docker-compose build
+docker-compose build --pull
+
 # EOF
 '''
       }
