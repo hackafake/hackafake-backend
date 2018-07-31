@@ -29,15 +29,23 @@ id; hostname; pwd; ls -la
 
 if [ "$BRANCH_NAME" = "master" ]; then
 
-  echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to staging"
+  echo "INFO: Deploying to staging server"
 
   REMOTEUSER=root
   REMOTEHOST=cc-vm3.solarma.it
-  REMOTEDIR=/var/tmp/${BRANCH_NAME}
+  REMOTEDIR=/var/tmp/${JOB_NAME}
+
+elif [ "$BRANCH_NAME" = "prod" ]; then
+
+  echo "INFO: Deploying to production server"
+
+  REMOTEUSER=root
+  REMOTEHOST=cc-vm4.solarma.it
+  REMOTEDIR=/var/tmp/${JOB_NAME}
 
 elif [ "$BRANCH_NAME" = "feature/implement-staging" ]; then
 
-  echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to cc-vm2"
+  echo "INFO: Deploying to cc-vm2"
 
   REMOTEUSER=root
   REMOTEHOST=cc-vm2.solarma.it
@@ -51,11 +59,11 @@ else
 fi
 
 echo "DEBUG: Inspecting target configuration"
-ssh ${ROOT}@${REMOTEHOST} "id; hostname; pwd; ls -la"
+ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
 
 echo "INFO: Deploying container to ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}"
 ssh ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
-rsync -avz . ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/
+rsync -avz . "${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/"
 ssh ${REMOTEUSER}@${REMOTEHOST} "cd ${REMOTEDIR} && \\
 git log -1 && \\
 git status && \\
