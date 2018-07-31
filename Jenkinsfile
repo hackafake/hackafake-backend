@@ -59,6 +59,17 @@ fi
 echo "DEBUG: Inspecting target configuration"
 ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
 
+if [ "${REMOTEUSER}" = "root" ]; then
+  echo "INFO: Preparing remote host ${REMOTEHOST}"
+  ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} " \\
+      sudo apt-get update && \\
+      sudo apt-get -y dist-upgrade && \\
+      sudo apt-get -y install git && \\
+  "
+  # TODO: Install docker
+  # TODO: Install docker-compose
+fi
+
 echo "INFO: Deploying container to ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}"
 ssh ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
 rsync -avz . "${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/"
