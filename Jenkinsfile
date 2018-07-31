@@ -61,7 +61,7 @@ ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
 
 if [ "${REMOTEUSER}" = "root" ]; then
   echo "INFO: Preparing remote host ${REMOTEHOST}"
-  ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} " \\
+  ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} sh -c "\\
       sudo apt-get update && \\
       sudo apt-get -y dist-upgrade && \\
       sudo apt-get -y install git && \\
