@@ -30,7 +30,11 @@ elif [ "$BRANCH_NAME" = "feature/implement-staging" ]; then
 
   echo "TODO: BRANCH_NAME=${BRANCH_NAME} ==> Deploying to cc-vm2"
 
-  ssh root@cc-vm2.solarma.it "id; pwd; ls -la"
+  echo "DEBUG: Inspecting host configuration"
+  id; hostname; pwd; ls -la
+
+  echo "DEBUG: Inspecting target configuration"
+  ssh root@cc-vm2.solarma.it "id; hostname; pwd; ls -la"
 
 else
 
