@@ -50,7 +50,7 @@ else
 fi
 
 echo "DEBUG: Inspecting target configuration"
-ssh ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
+ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} "id; hostname; pwd; ls -la"
 
 if [ "${REMOTEUSER}" = "root" ]; then
   echo "INFO: Preparing remote host ${REMOTEHOST}"
