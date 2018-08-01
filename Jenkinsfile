@@ -62,9 +62,9 @@ if [ "${REMOTEUSER}" = "root" ]; then
 fi
 
 echo "INFO: Deploying container to ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}"
-ssh ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
+ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
 rsync -avz --no-owner . "${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/"
-ssh ${REMOTEUSER}@${REMOTEHOST} "cd ${REMOTEDIR} && \\
+ssh -o StrictHostKeyChecking=no ${REMOTEUSER}@${REMOTEHOST} "cd ${REMOTEDIR} && \\
 git log -1 && \\
 git status && \\
 docker-compose build --pull && \\
