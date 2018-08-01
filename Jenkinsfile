@@ -38,12 +38,12 @@ echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
 
 if [ "$BRANCH_NAME" = "master" ]; then
   echo "INFO: Deploying to staging server"
-  REMOTEUSER=root
-  REMOTEHOST=cc-vm2.solarma.it
+  REMOTEUSER=hackafake
+  REMOTEHOST=staging.hackafake.com
 elif [ "$BRANCH_NAME" = "prod" ]; then
   echo "INFO: Deploying to production server"
-  REMOTEUSER=root
-  REMOTEHOST=cc-vm4.solarma.it
+  REMOTEUSER=hackafake
+  REMOTEHOST=prod.hackafake
 else
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
   return    
