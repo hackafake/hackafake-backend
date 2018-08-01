@@ -33,7 +33,7 @@ echo "DEBUG: BRANCH_NAME=${BRANCH_NAME}"
 echo "DEBUG: Inspecting host configuration"
 id; hostname; pwd; ls -la
 
-REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed 's/%2F/-/g' | sed 's:/:-:g')
+REMOTEDIR=/var/tmp/$(echo ${JOB_NAME} | sed \'s/%2F/-/g\' | sed \'s:/:-:g\')
 echo "DEBUG: REMOTEDIR=${REMOTEDIR}"
 
 if [ "$BRANCH_NAME" = "master" ]; then
@@ -63,7 +63,7 @@ fi
 
 echo "INFO: Deploying container to ${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}"
 ssh ${REMOTEUSER}@${REMOTEHOST} "mkdir -p ${REMOTEDIR}"
-rsync -avz . "${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/"
+rsync -avz --no-owner . "${REMOTEUSER}@${REMOTEHOST}:${REMOTEDIR}/"
 ssh ${REMOTEUSER}@${REMOTEHOST} "cd ${REMOTEDIR} && \\
 git log -1 && \\
 git status && \\
