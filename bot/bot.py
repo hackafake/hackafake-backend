@@ -17,7 +17,7 @@ def handle(msg):
         urls =re.findall('https?:\/\/[^\s]+', msg['text'])
         if len(urls) > 0:
             for url in urls:
-                res = requests.post("http://52.212.172.20:8080/fakenews", json={
+                res = requests.post("http://api.hackafake.com:8080/fakenews", json={
                     'url': url,
                     'username': msg["from"].get('username') or (msg["from"].get("first_name") + ' ' + msg["from"].get("last_name"))
                 })
