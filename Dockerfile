@@ -1,11 +1,10 @@
 FROM debian:latest
 
 RUN apt-get -q update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" && \
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" \
         python3 python3-pip python3-setuptools nginx supervisor
 
-#   DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends
-    
 RUN pip3 install uwsgi
 
 COPY ./requirements.txt /requirements.txt
