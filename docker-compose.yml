@@ -14,3 +14,6 @@ services:
     image: mongo:3.0.2
     volumes:
       - ./data:/data/db
+    command: --smallfiles
+
+# EOF
