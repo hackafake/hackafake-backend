@@ -1,8 +1,9 @@
 FROM debian:latest
 
-RUN apt update && \
-    apt install python3 python3-pip -y && \
-    apt install nginx supervisor -y 
+RUN apt-get -q update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" && \
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew" \
+        python3 python3-pip python3-setuptools nginx supervisor
 
 RUN pip3 install uwsgi
 
