@@ -43,7 +43,7 @@ if [ "$BRANCH_NAME" = "master" ]; then
 elif [ "$BRANCH_NAME" = "prod" ]; then
   echo "INFO: Deploying to production server"
   REMOTEUSER=hackafake
-  REMOTEHOST=prod.hackafake
+  REMOTEHOST=prod.hackafake.com
 else
   echo "INFO: BRANCH_NAME=${BRANCH_NAME} ==> No action"
   return    
