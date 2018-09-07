@@ -86,11 +86,10 @@ class FakeNewsResource(Resource):
     @api.expect(fake_post_model)
     @api.marshal_with(fake_news_model)
     def post(self):
-        logging.basicConfig(format='%(message)s')
-
-        logging.warn('I print to stderr by default')
-        logging.info('For this you must change the level and add a handler.')
-        print('hello world')
+        # logging.basicConfig(format='%(message)s')
+        # logging.warn('I print to stderr by default')
+        api.logger.info('For this you must change the level and add a handler.')
+        # print('hello world')
 
         data = request.json
         println("DEBUG: apis.py: data=" + data)
