@@ -90,6 +90,7 @@ class FakeNewsResource(Resource):
     @api.marshal_with(fake_news_model)
     def post(self):
         data = request.json
+        println("DEBUG: apis.py: data=" + data)
         try:
             fake = FakeNews.objects.get(url=data['url'])
         except:
