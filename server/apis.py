@@ -11,12 +11,6 @@ import random
 import logging
 import sys
 
-logging.basicConfig(format='%(message)s')
-
-logging.warn('I print to stderr by default')
-logging.info('For this you must change the level and add a handler.')
-print('hello world')
-
 def get_title_from_url(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -52,7 +46,6 @@ true_fake_model = api.model('TrueFake', {
 })
 
 
-
 @api.route('/counter')
 class CounterResource(Resource):
     def get(self):
@@ -77,8 +70,6 @@ class ChallengeResource(Resource):
             'fake': fake,
             'real': real
             }
-        
-
 
 @api.route('/users')
 class UserResource(Resource):
@@ -95,6 +86,12 @@ class FakeNewsResource(Resource):
     @api.expect(fake_post_model)
     @api.marshal_with(fake_news_model)
     def post(self):
+        logging.basicConfig(format='%(message)s')
+
+        logging.warn('I print to stderr by default')
+        logging.info('For this you must change the level and add a handler.')
+        print('hello world')
+
         data = request.json
         println("DEBUG: apis.py: data=" + data)
         try:
@@ -121,3 +118,5 @@ class FakeNewsResource(Resource):
         user.save()
         
         return fake
+
+# EOF
