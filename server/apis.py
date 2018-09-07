@@ -88,7 +88,7 @@ class FakeNewsResource(Resource):
     def post(self):
         # logging.basicConfig(format='%(message)s')
         # logging.warn('I print to stderr by default')
-        app.logger.info('For this you must change the level and add a handler.')
+        app.logger.error('For this you must change the level and add a handler.')
         # print('hello world')
 
         data = request.json
