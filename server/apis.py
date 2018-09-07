@@ -8,8 +8,14 @@ from bs4 import BeautifulSoup
 import requests
 import random
 
-
+import logging
 import sys
+
+logging.basicConfig(format='%(message)s')
+
+logging.warn('I print to stderr by default')
+logging.info('For this you must change the level and add a handler.')
+print('hello world')
 
 def get_title_from_url(url):
     response = requests.get(url)
