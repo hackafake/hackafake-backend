@@ -12,6 +12,8 @@ db = MongoEngine()
 
 def create_app(confname='default'):
     app = Flask(__name__)
+    app.logger.info("hackafake-backend server start")
+    app.logger.debug("hackafake-backend server: Debug information here")
     app.config.from_object(configs[confname])
 
     db.init_app(app)
@@ -23,5 +25,6 @@ def create_app(confname='default'):
     from .apis import api
     api.init_app(app)
 
-
     return app
+
+# EOF

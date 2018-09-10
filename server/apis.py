@@ -15,7 +15,7 @@ def get_title_from_url(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     return str(soup.find('title').string.strip()) or url
-    
+
 api = Api(
     title='hackafake Open API',
     version='1.0',
@@ -60,7 +60,7 @@ class CounterResource(Resource):
 class ChallengeResource(Resource):
     @api.marshal_with(true_fake_model)
     def get(self):
-        
+
         fakes = [fake for fake in FakeNews.objects(is_fake=True) ]
         reals = [fake for fake in FakeNews.objects(is_fake=False) ]
 
@@ -88,11 +88,13 @@ class FakeNewsResource(Resource):
     def post(self):
         # logging.basicConfig(format='%(message)s')
         # logging.warn('I print to stderr by default')
-        app.logger.error('For this you must change the level and add a handler.')
+        # app.logger.error('For this you must change the level and add a handler.')
         # print('hello world')
 
         data = request.json
-        println("DEBUG: apis.py: data=" + data)
+        #
+        # NameError: name 'app' is not defined
+        # app.logger.debug("apis.py: data=" + data)
         try:
             fake = FakeNews.objects.get(url=data['url'])
         except:
@@ -115,7 +117,7 @@ class FakeNewsResource(Resource):
         else:
             user.real += 1
         user.save()
-        
+
         return fake
 
 # EOF
