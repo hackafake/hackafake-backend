@@ -1,3 +1,4 @@
+from flask import Flask
 from flask_restplus import Namespace, Resource, fields
 from flask import request
 
@@ -8,7 +9,6 @@ from bs4 import BeautifulSoup
 import requests
 import random
 
-import logging
 import sys
 
 def get_title_from_url(url):
@@ -95,6 +95,7 @@ class FakeNewsResource(Resource):
         #
         # NameError: name 'app' is not defined
         # app.logger.debug("apis.py: data=" + data)
+        Flask(__name__).logger.debug("Hi, there!")
         try:
             fake = FakeNews.objects.get(url=data['url'])
         except:
