@@ -11,6 +11,10 @@ import random
 
 import sys
 
+import logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
+
 def get_title_from_url(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -86,19 +90,14 @@ class FakeNewsResource(Resource):
     @api.expect(fake_post_model)
     @api.marshal_with(fake_news_model)
     def post(self):
-        # logging.basicConfig(format='%(message)s')
-        # logging.warn('I print to stderr by default')
-        # app.logger.error('For this you must change the level and add a handler.')
-        # print('hello world')
-
+        log.warning("Before data = request.json")
         data = request.json
-        #
-        # NameError: name 'app' is not defined
-        # app.logger.debug("apis.py: data=" + data)
-        Flask(__name__).logger.debug("Hi, there!")
         try:
+            url=data['url']
+            log.info("Before FakeNews.objects.get: url=" + url)
             fake = FakeNews.objects.get(url=data['url'])
         except:
+            # FIXME: Double exception may happen here!
             fake = FakeNews(url=data['url'], counter = 0)
             fake.title = get_title_from_url(data['url'])
             r = requests.get('https://api.fakenewsdetector.org/votes?url={}&title='.format(data['url']))
