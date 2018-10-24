@@ -103,3 +103,8 @@ ENV/
 
 .pytest_cache/
 .vscode/
+
+# MongoDB volume
+data/
+
+# EOF

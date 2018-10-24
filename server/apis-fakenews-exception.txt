@@ -1,0 +1,41 @@
+
+server_1   | --------------------------------------------------------------------------------
+server_1   | ERROR in app [/usr/local/lib/python3.5/dist-packages/flask/app.py:1560]:
+server_1   | Exception on /fakenews [POST]
+server_1   | --------------------------------------------------------------------------------
+server_1   | Traceback (most recent call last):
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/mongoengine/queryset/base.py", line 272, in get
+server_1   |     result = next(queryset)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/mongoengine/queryset/base.py", line 1466, in __next__
+server_1   |     raw_doc = next(self._cursor)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/pymongo/cursor.py", line 1177, in next
+server_1   |     raise StopIteration
+server_1   | StopIteration
+server_1   |
+server_1   | During handling of the above exception, another exception occurred:
+server_1   |
+server_1   | Traceback (most recent call last):
+server_1   |   File "./server/apis.py", line 99, in post
+server_1   |     fake = FakeNews.objects.get(url=data['url'])
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/mongoengine/queryset/base.py", line 276, in get
+server_1   |     raise queryset._document.DoesNotExist(msg)
+server_1   | server.models.DoesNotExist: FakeNews matching query does not exist.
+server_1   |
+server_1   | During handling of the above exception, another exception occurred:
+server_1   |
+server_1   | Traceback (most recent call last):
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1612, in full_dispatch_request
+server_1   |     rv = self.dispatch_request()
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1598, in dispatch_request
+server_1   |     return self.view_functions[rule.endpoint](**req.view_args)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask_restplus/api.py", line 313, in wrapper
+server_1   |     resp = resource(*args, **kwargs)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask/views.py", line 84, in view
+server_1   |     return self.dispatch_request(*args, **kwargs)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask_restplus/resource.py", line 44, in dispatch_request
+server_1   |     resp = meth(*args, **kwargs)
+server_1   |   File "/usr/local/lib/python3.5/dist-packages/flask_restplus/marshalling.py", line 101, in wrapper
+server_1   |     resp = f(*args, **kwargs)
+server_1   |   File "./server/apis.py", line 106, in post
+server_1   |     for d in r.json()['content']['robot']:
+server_1   | KeyError: 'content'
