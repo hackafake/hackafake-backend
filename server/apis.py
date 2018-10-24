@@ -12,8 +12,10 @@ import random
 import sys
 
 import logging
-log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+
+logging.basicConfig()
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 def get_title_from_url(url):
     response = requests.get(url)
@@ -65,8 +67,12 @@ class ChallengeResource(Resource):
     @api.marshal_with(true_fake_model)
     def get(self):
 
+        logging.debug('ChallengeResource.get(self=%s)', self)
+
         fakes = [fake for fake in FakeNews.objects(is_fake=True) ]
         reals = [fake for fake in FakeNews.objects(is_fake=False) ]
+
+        logging.debug('Got fakes=%s, reals=%s', fakes, reals)
 
         fake = random.choice(fakes)
         real = random.choice(reals)
